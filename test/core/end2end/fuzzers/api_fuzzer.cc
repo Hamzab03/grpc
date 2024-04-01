@@ -157,9 +157,9 @@ class FuzzerDNSResolver : public grpc_core::DNSResolver {
   }
 
   absl::StatusOr<std::vector<grpc_resolved_address>> LookupHostnameBlocking(
-      absl::string_view /* name */,
-      absl::string_view /* default_port */) override {
-    GPR_ASSERT(0);
+      absl::string_view name,
+      absl::string_view default_port)  override {
+    return default_resolver_->LookupHostnameBlocking(name, default_port);
   }
 
   TaskHandle LookupSRV(
@@ -197,6 +197,9 @@ class FuzzerDNSResolver : public grpc_core::DNSResolver {
 
  private:
   FuzzingEventEngine* engine_;
+  // the previous default DNS resolver, used to delegate blocking DNS calls to
+  std::shared_ptr<DNSResolver> default_resolver_ =
+      ::grpc_core::GetDNSResolver();
 };
 
 }  // namespace
