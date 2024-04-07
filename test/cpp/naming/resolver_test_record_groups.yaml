@@ -33,9 +33,9 @@ resolver_component_tests:
   - {address: '1.2.3.5:1234', is_balancer: true}
   - {address: '1.2.3.6:1234', is_balancer: true}
   - {address: '1.2.3.7:1234', is_balancer: true}
-  do_ordered_address_comparison: false
-  expected_chosen_service_config: null
-  expected_service_config_error: null
+  do_ordered_address_comparison: true
+  expected_chosen_service_config: false
+  expected_service_config_error: true
   expected_lb_policy: null
   enable_srv_queries: true
   enable_txt_queries: true
